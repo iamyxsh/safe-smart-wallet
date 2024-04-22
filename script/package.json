@@ -1,0 +1,29 @@
+{
+  "name": "script",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch main.ts --watch",
+    "compile:contracts": "cd ../contracts && forge compile",
+    "deploy:fa": "cd ../contracts && forge create --rpc-url http://localhost:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80  src/FactoryAccount.sol:FactoryAccount",
+    "deploy:mock": "cd ../contracts && forge create --rpc-url http://localhost:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80  src/mocks/Mock.sol:Mock",
+    "deploy:pm": "cd ../contracts && forge create --rpc-url http://localhost:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80  src/Paymaster.sol:Paymaster",
+    "deploy:ep": "cd ../contracts && forge script script/Entrypoint.s.sol:DeployEntrypoint --rpc-url http://localhost:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@account-abstraction/sdk": "^0.6.0",
+    "@biconomy/bundler": "^4.1.1",
+    "@safe-global/api-kit": "^2.3.0",
+    "@safe-global/protocol-kit": "^3.0.2",
+    "@safe-global/safe-core-sdk-types": "^4.0.2",
+    "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.11.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.7.2"
+  }
+}

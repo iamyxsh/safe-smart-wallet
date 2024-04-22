@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  server:
+    container_name: server
+    build: ./server
+    ports:
+      - '5050:5050'
+    volumes:
+      - ./server:/app
+      - go-build:/go/pkg/mod
+      - go-cache:/root/.cache/go-build
+    depends_on:
+      - mongo
+    environment:
+      MONGO_URI: mongodb://mongo:27017/database
+    networks:
+      - app-network
+
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./cache/mongo-data:/data/db
+    networks:
+      - app-network
+
+  node:
+    container_name: anvil
+    image: ghcr.io/foundry-rs/foundry
+    working_dir: /anvil
+    entrypoint: anvil --fork-url https://mainnet.chainnodes.org/cc21c81f-dd67-4b5b-8b70-8a71f46c8eea --fork-block-number 19640973 --host 0.0.0.0
+    ports:
+      - '8545:8545'
+    networks:
+      - app-network
+
+volumes:
+  mongo-data:
+  go-build:
+  go-cache:
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,5 @@
+.env
+/server/tmp
+/contracts/.github
+/cache
+/**/*/node_modules
